@@ -1,6 +1,9 @@
 import re # 正規表現モジュール
-from django.views.generic import ListView, DetailView # ListView、DetailViewをインポートする
+from django.views.generic import ListView, DetailView, TemplateView # ListView、DetailView、TemplateViewをインポートする
 from .models import SpreadsheetData
+
+class IndexView(TemplateView):
+    template_name = "index.html"
 
 class ChapterListView(ListView): # 一覧を簡単に作るためのView
     template_name = "chapter_list.html" # chapter_list.htmlをレンダリングする
