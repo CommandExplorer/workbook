@@ -3,12 +3,13 @@
 {% block title %}サインアップ{% endblock %}
 <!-- Page Header-->
 {% block header %}
-<header class="masthead" style="background-image: url('assets/img/contact-bg.jpg')">
+<header class="masthead" style="background-image: url({% static 'assets/img/contact-bg.jpg' %})">
     <div class="container position-relative px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <div class="page-heading">
                     <h1>サインアップ</h1>
+                    <span class="subheading">新しく登録するアカウントの情報を入力してください</span>
                 </div>
             </div>
         </div>
@@ -16,31 +17,27 @@
 </header>
 {% endblock %}
 <!-- Main Content-->
-{% block cintents %}
+{% block contents %}
 <main class="mb-4">
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
-                <p>新しく登録するアカウントの情報を入力してください</p>
                 <div class="my-5">
                     <form method="post">
                         {% csrf_token %}
-                        {% comment %} <div class="form-floating"> {% endcomment %}
                         {% for field in form %}
                             <p>
                                 {{field.label_tag}}<br>
                                 {{field}}
-
                                 {% if field.help_text %}
                                     <small style='color:gray'>{{field.help_text}}</small>
                                 {% endif %}
-
                                 {% for error in field.errors %}
                                     <p style='color:red'>{{error}}</p>
                                 {% endfor %}
                             </p>
                         {% endfor %}
-                         <input type="submit" value="サインアップ">   
+                        <input type="submit" value="サインアップ">   
                     </form>
                     <br>
                     <p><a href="{% url 'workbook:index' %}">登録をやめてトップページに戻る</a></p>
