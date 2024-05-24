@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}回答画面{% endblock %}
+{% block header %}
+<!-- Page Header-->
+<header class="masthead" style="background-image: url({% static 'assets/img/post-bg.jpg' %})">
+   <div class="container position-relative px-4 px-lg-5">
+       <div class="row gx-4 gx-lg-5 justify-content-center">
+           <div class="col-md-10 col-lg-8 col-xl-7">
+               <div class="post-heading">
+                   <h1>回答・解説</h1>
+                   <h2 class="subheading">{{answer.chapter}} {{answer.question_number}}</h2>
+               </div>
+           </div>
+       </div>
+   </div>
+</header>
+{% endblock %}
+<!-- Post Content-->
+{% block contents %}
+<article class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <h1>回答</h1>
+                <pre style="white-space: pre;">{{ answer.answer }}</pre>
+                <hr class="my-4" />
+                <h1>解説</h1>
+                <p>{{answer.explanation}}</p>
+                <hr class="my-4" />
+            </div>
+        </div>
+    </div>
+</article>
+<hr>
+{% endblock %}
+{% block navigation %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'workbook:chapter_select' %}">{{answer.chapter}}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'workbook:question_list' chapter=answer.chapter %}">{{answer.question_number}}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'workbook:question_detail' pk=answer.pk %}">問題文</a></li>
+    </ol>
+</nav>
+{% endblock %}

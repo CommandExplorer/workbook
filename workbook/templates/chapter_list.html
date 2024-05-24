@@ -8,7 +8,7 @@
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <div class="site-heading">
-                    <h1>章を選択</h1>
+                    <h1>章選択</h1>
                 </div>
             </div>
         </div>
@@ -21,9 +21,9 @@
     <div class="row gx-4 gx-lg-5 justify-content-center">
         <div class="col-md-10 col-lg-8 col-xl-7">
             <!-- Post preview-->
-            {% for c in chapters %}
+            {% for c in chapters %} 
             <div class="post-preview">
-                <a href="#">
+                <a href="{% url 'workbook:question_list' chapter=c.chapter %}">
                     <h2 class="post-title">{{c.chapter}}</h2>
                 </a>
             </div>

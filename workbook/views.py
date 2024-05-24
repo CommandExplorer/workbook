@@ -1,5 +1,5 @@
 import re # 正規表現モジュール
-from django.views.generic import ListView # ListViewをインポートする
+from django.views.generic import ListView, DetailView # ListView、DetailViewをインポートする
 from .models import SpreadsheetData
 
 class ChapterListView(ListView): # 一覧を簡単に作るためのView
@@ -23,3 +23,35 @@ class ChapterListView(ListView): # 一覧を簡単に作るためのView
 
         sorted_chapters = sorted(chapters, key=sort_key)
         return sorted_chapters
+
+class QuestionListView(ListView):
+    template_name = "question_list.html"
+    context_object_name = "questions"
+    model = SpreadsheetData
+    
+    def get_queryset(self):
+        get_chapter = self.kwargs['chapter']  # URLから抽出されたchapterというキーワード引数の値を取得(選択された章の名前を取得)
+        questions = SpreadsheetData.objects.filter(chapter=get_chapter).values('pk', 'question_number', 'category', 'level')
+        
+        def sort_key(question):
+            question_match = re.match(r'(\d+)-(\d+)|応用(\d+)-(\d+)', question['question_number'])
+            
+            if question_match and question_match.group(1):  # ◇ー〇にマッチした場合
+                return int(question_match.group(2))  # 〇の部分を整数に変換して返す
+            elif question_match and question_match.group(3):  # 応用◇ー〇にマッチした場合
+                return int(question_match.group(4))  # 〇の部分を整数に変換して返す
+            else:  # マッチしなかった場合
+                return float('inf')  # 無限大を返す
+
+        sorted_questions = sorted(questions, key=sort_key)
+        return sorted_questions
+    
+class QuestionDetailView(DetailView):
+    template_name = "question_detail.html"
+    context_object_name = "question"
+    model = SpreadsheetData
+
+class AnswerDetailView(DetailView):
+    template_name = "answer_detail.html"
+    context_object_name = "answer"
+    model = SpreadsheetData
