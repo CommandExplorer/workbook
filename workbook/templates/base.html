@@ -27,8 +27,23 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto py-4 py-lg-0">
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'workbook:index' %}">ホーム</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'accounts:signup' %}">サインアップ</a></li>
+                        {% if user.is_authenticated %}
+                            <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'workbook:index' %}">ホーム</a></li>
+                            <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'workbook:chapter_select' %}">問題を選択</a></li>
+                            <li class="nav-item">
+                                <form id="logout-form" method="post" action="{% url 'accounts:logout' %}" style="display: none;">
+                                    {% csrf_token %}
+                                </form>
+                                <a class="nav-link px-lg-3 py-3 py-lg-4"
+                                   href="#"
+                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'workbook:index' %}">ホーム</a></li>
+                            <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'accounts:signup' %}">サインアップ</a></li>
+                            <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'accounts:login' %}">ログイン</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
@@ -70,7 +85,7 @@
                                 </a>
                             </li>
                         </ul>
-                        <div class="small text-center text-muted fst-italic">Copyright &copy; 授業制作チーム問題集</div>
+                        <div class="small text-center text-muted fst-italic">Copyright &copy; 未来教室プロジェクト問題集</div>
                     </div>
                 </div>
             </div>

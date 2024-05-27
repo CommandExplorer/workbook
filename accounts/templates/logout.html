@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}ログアウト{% endblock %}
+<!-- Page Header-->
+{% block header %}
+<style>
+header.masthead {
+    padding-top: calc(6rem + 57px);
+}
+.btn{
+    text-decoration: none;
+}
+</style>
+<header class="masthead" style="background-image: url({% static 'assets/img/contact-bg.jpg' %}); height: 50vh;">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h1>ログアウト完了</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
+<!-- Main Content-->
+{% block contents %}
+<div class="py-2 text-center container">
+    <div class="row">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h3>再度使用したい場合は、ログインしてください</h3>
+            <p><a href="{% url 'workbook:index' %}">ホームに戻る</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

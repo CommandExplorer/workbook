@@ -10,6 +10,9 @@ header.masthead {
 .btn{
     text-decoration: none;
 }
+.btn-primary {
+    margin-right: 8px;
+}
 </style>
 <header class="masthead" style="background-image: url({% static 'assets/img/home-bg.jpg' %}); height: 50vh;">
     <div class="container position-relative px-4 px-lg-5">
@@ -30,8 +33,20 @@ header.masthead {
     <div class="row">
         <div class="col-lg-6 col-md-8 mx-auto">
             <p>
-                <a href="{% url 'accounts:signup' %}" class="btn btn-primary my-2">今すぐサインアップ</a>
-                <a href="#" class="btn btn-secondary my-2">登録済みの方はログイン</a>
+                {% if user.is_authenticated %}
+                    <div class="d-flex justify-content-center my-2">
+                        <a href="{% url 'workbook:chapter_select' %}" class="btn btn-primary mr-2">問題を選択</a>
+                        <form method="post" action="{% url 'accounts:logout' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-secondary">ログアウト</button>
+                        </form>
+                    </div>
+                {% else %}
+                    <div class="d-flex justify-content-center my-2">
+                        <a href="{% url 'accounts:signup' %}" class="btn btn-primary mr-2">今すぐサインアップ</a>
+                        <a href="{% url 'accounts:login' %}" class="btn btn-secondary">登録済みの方はログイン</a>
+                    </div>
+                {% endif %}
             </p>
         </div>
     </div>
