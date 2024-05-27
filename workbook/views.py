@@ -1,11 +1,12 @@
 import re # 正規表現モジュール
 from django.views.generic import ListView, DetailView, TemplateView # ListView、DetailView、TemplateViewをインポートする
 from .models import SpreadsheetData
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 class IndexView(TemplateView):
     template_name = "index.html"
 
-class ChapterListView(ListView): # 一覧を簡単に作るためのView
+class ChapterListView(LoginRequiredMixin, ListView): # 一覧を簡単に作るためのView
     template_name = "chapter_list.html" # chapter_list.htmlをレンダリングする
     context_object_name = "chapters" # object_listキーの別名を設定
     model = SpreadsheetData
@@ -27,7 +28,7 @@ class ChapterListView(ListView): # 一覧を簡単に作るためのView
         sorted_chapters = sorted(chapters, key=sort_key)
         return sorted_chapters
 
-class QuestionListView(ListView):
+class QuestionListView(LoginRequiredMixin, ListView):
     template_name = "question_list.html"
     context_object_name = "questions"
     model = SpreadsheetData
@@ -49,12 +50,12 @@ class QuestionListView(ListView):
         sorted_questions = sorted(questions, key=sort_key)
         return sorted_questions
     
-class QuestionDetailView(DetailView):
+class QuestionDetailView(LoginRequiredMixin, DetailView):
     template_name = "question_detail.html"
     context_object_name = "question"
     model = SpreadsheetData
 
-class AnswerDetailView(DetailView):
+class AnswerDetailView(LoginRequiredMixin, DetailView):
     template_name = "answer_detail.html"
     context_object_name = "answer"
     model = SpreadsheetData

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}問題表示{% endblock %}
+<!-- Main Content-->
+{% block contents %}
+<main class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="my-5">
+                    <h1 class="text-center">難易度{{work_selected.0.level}}の問題</h1>
+                    <h4 class="text-center">全部で{{work_selected.count}}問あります</h4>
+                    <br><br>
+                    {% for work in work_selected %}
+                        <h2>第{{ forloop.counter }}問 {{work.question_number}}</h2>
+                        <p>{{work.question | linebreaksbr}}</p>
+                        <br>
+                        <hr>
+                    {% endfor %}
+                    <p><a href="{% url 'practice_work:work' %}">練習問題を終了する</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

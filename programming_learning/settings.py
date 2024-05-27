@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'workbook.apps.WorkbookConfig',
     'accounts.apps.AccountsConfig',
+    'practice_work.apps.PracticeWorkConfig',
 ]
 
 MIDDLEWARE = [
